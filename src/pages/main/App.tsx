@@ -42,19 +42,7 @@ const App = () => {
   }
 
   return (
-    <StepWizard isHashEnabled={true}>
-
-    </StepWizard>
-  
-  );
-}
-
-export default App;
-
-
-
-
-{/* <div className="App">
+    <div className="App">
 <header className="App-header">
   <form onSubmit={handleSubmit}>
 
@@ -99,4 +87,12 @@ export default App;
   </div>
 </div>
 
-</div> */}
+</div>
+  );
+}
+
+export default App;
+
+
+
+
