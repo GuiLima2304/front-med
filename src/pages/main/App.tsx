@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import StepWizard from 'react-step-wizard';
+// import StepWizard from 'react-step-wizard';
 import { TextField, Button } from '@material-ui/core';
 
 import api from '../../services/api';
@@ -37,8 +37,8 @@ const App = () => {
   }
 
   async function setValuesAboutDrugs(response:any) {
-    setResPriDrug(response.data[0])
-    setResSecDrug(response.data[1])
+    setResPriDrug(response[0])
+    setResSecDrug(response[1])
   }
 
   return (
