@@ -25,12 +25,27 @@ const App = () => {
       .catch((error) => { console.log(error) });
    }
 
-   async function setValuesAboutDrugs(response: any) {       
-    
-    setResPriDrug(response.data[0].teste[0].description)
-    setResSecDrug(response.data[1].teste)
-   }
-  
+  async function setValuesAboutDrugs(response: any) {       
+
+      for (var bulas in response.data) {
+      
+        for (var topics in response.data[bulas].teste) {
+          
+          for (var title in response.data[bulas].teste[topics].title) {
+            
+            console.log(title);
+            
+          
+        }
+
+      }
+      
+        setResPriDrug(response.data[0].teste)    
+        setResSecDrug(response.data[1].teste)
+    }
+  }
+
+
   return (
     <div className='App'>
       
@@ -111,18 +126,18 @@ const App = () => {
 
       <div className='section' id='section3'>
         <div className='section-content' >
-        <text className='question'>
-          <span className='number'>
-            <strong>
-              Encontramos isso:
-            </strong>
-          </span>
-            { resPriDrug }
-          </text>
+
+        <text>
+          <span className='number'><strong>Encontramos isso:</strong></span>
+        </text>
+        
+        <text className='question'>          
+
+        </text>
           
           <Link
             activeClass='active'
-            to='response'
+            to='intro'
             spy={true}
             smooth={true}
             offset={-70}
