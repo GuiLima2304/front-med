@@ -2,39 +2,43 @@ import React, { useState } from 'react';
 import { Link } from 'react-scroll'
 
 import { Input } from '@material-ui/core';
-import {Collapse, Button, Col} from 'react-bootstrap';
 
+import Loader from '../components/loader'
+import MedicineLeaflet from '../components/medicine-leaflet'
 
 import api from '../services/api';
 
 const App = () => {
+  
+  const [priDrug, setPriDrug] = useState<String>('')
+  const [secDrug, setSecDrug] = useState<String>('')
 
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [bula1, setBula1] = useState()
 
-  // const [priDrug, setPriDrug] = useState<String>('')
-  // const [secDrug, setSecDrug] = useState<String>('')
+  const [loading, setLoading] = useState(true)
+  const [test, setTest] = useState()
 
-  // const [resPriDrug, setResPriDrug] = useState('')
-  // const [resSecDrug, setResSecDrug] = useState('')
-
-  // async function handleSubmit(primary_drug: any, second_drug: any) {    
+  async function handleSubmit(primary_drug: any, second_drug: any) {    
    
-  //   const data = {
-  //     primary_drug,
-  //     second_drug
-  //   }    
+    const data = {
+      primary_drug,
+      second_drug
+    }    
     
-  //    await api.post('medicines', data)
-  //     .then(res => setValuesAboutDrugs(res))
-  //     .catch((error) => { console.log(error) });
-  //  }
+    await api.post('medicines', data)
+      .then(res => {
+        setValuesAboutDrugs(res)
+        setLoading(false)
+      })
+      .catch((error) => { console.log(error) });
+  }
 
-  // async function setValuesAboutDrugs(response: any) {       
+   async function setValuesAboutDrugs(response: any) {
     
-  //   setResPriDrug(response.data[0].teste[0].description)    
-  //   setResSecDrug(response.data[1].teste[0].description)
-  // }
+    console.log(response.data);
+    setTest(response.data)
+
+   }
 
   return (
     <div className='App'>
@@ -71,7 +75,7 @@ const App = () => {
             id='primary_drug'
             name='primary_drug'
             style={{marginBottom: 30, width: 550, fontSize: 23, color: '#1F7FFF'}}
-            // onChange={drug => setPriDrug(drug.target.value)}
+            onChange={drug => setPriDrug(drug.target.value)}
             />
 
           <Link
@@ -99,7 +103,7 @@ const App = () => {
             id='second_drug'
             name='second_drug'
             style={{marginBottom: 30, width: 550, fontSize: 23, color: '#1F7FFF'}}
-            // onChange={drug => setSecDrug(drug.target.value)}
+            onChange={drug => setSecDrug(drug.target.value)}
           />
 
           <Link
@@ -110,94 +114,40 @@ const App = () => {
             offset={-70}
             duration={500}>   
             <div className='actions'>
-              <button>Buscar</button>
+              <button onClick={() => handleSubmit(priDrug, secDrug)}>Buscar</button>
             </div>
           </Link>
 
         </div>
       </div>
 
+      {/* RESPONSE */}
+
       <div className='section' id='section3'>
 
         <div className='container-responses'>
 
-          <div className='section-content' id='section-response' >
-            <h2>Bula 1</h2>
-
-            <Button
-              onClick={() => setOpen1(!open1)}
-              aria-controls="example-collapse-text"
-              aria-expanded={open1}
-              >
-              Mostrar
-            </Button>
-            
-            <Collapse in={open1}>
-              <text className='question'>  
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-              </text>      
-            </Collapse>
+          <div className='section-content' id='section-response' >   
+            {
+              loading ? <Loader/> :
+                <> 
+                  <h2>{priDrug.charAt(0).toUpperCase() + priDrug.slice(1)}</h2>
+                  <MedicineLeaflet data={test} index={0}/>
+                </>
+            }
           </div>
 
           <div className='section-content' id='section-response' >  
-            <h2>Bula 2</h2>
+           
+          {
+              loading ? <Loader/> : 
+                <> 
+                  <h2>{secDrug.charAt(0).toUpperCase() + secDrug.slice(1)}</h2>
+                  <MedicineLeaflet data={test} index={1}/>
+                </>
+              
+            }
 
-            <Button
-              onClick={() => setOpen2(!open2)}
-              aria-controls="example-collapse-text"
-              aria-expanded={open2}
-            >
-              Mostrar
-            </Button>
-
-            <Collapse  in={open2}>
-              <text className='question'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, a expedita reprehenderit, alias nam doloremque placeat quos praesentium ut rerum voluptas esse quod vel necessitatibus perferendis facilis recusandae nulla! Consequatur!
-              </text>       
-            </Collapse>
           </div>
           
         </div>

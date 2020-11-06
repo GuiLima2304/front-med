@@ -4,6 +4,10 @@
   --off-white: #fafafa;
 }
 
+body {
+  /* overflow: hidden; */
+}
+
 .App {
   margin: 0;
   font-family: 'Karla', sans-serif;
@@ -17,8 +21,7 @@
   min-height: 100vh; 
   margin: 0px 90px 0px 90px;
 
-  border: 1px solid coral
-
+  /* border: silver 1px solid; */
 }
 
 #section-response {
@@ -31,14 +34,11 @@
   display: flex;
   flex-direction: column;
 
-  border: darkblue 1px solid;
 }
 
 .container-responses {
   width: 100%;
   display: flex;
-
-  background-color: silver;
 }
 
 .title {
